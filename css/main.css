@@ -84,6 +84,15 @@ textarea {
    Browser Upgrade Prompt
    ========================================================================== */
 
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+html, body{
+  height:100%;
+  width: 100%;
+}
+
 .browserupgrade {
     margin: 0.2em 0;
     background: #ccc;
@@ -95,13 +104,108 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+h1, h2, h3 {
+  color: #333;
+}
 
+* {
+  box-sizing: border-box;
+}
 
+aside.left-menu {
+  float: left;
+  border-right: 1px solid #ccc;
+  width: 220px;
+  height: 100%;
+  background-color: #fafafa;
+  position: fixed;
+}
 
+aside.left-menu .menu-upper-wrap{
+  background-color: #eeecae;
+  padding: 1em;
+}
 
+aside.left-menu .img-box {
+  text-align: center;
+}
 
+aside.left-menu img {
+  width: 60%;
+}
 
+aside.left-menu h1 {
+  font-size: 1.2em;
+  margin-bottom: .3em;
+  color: #333;
+}
 
+aside.left-menu h2 {
+  font-size: 1.1em;
+  margin: 0px;
+  color: #555;
+}
+
+aside.left-menu header {
+  text-align: center;
+}
+
+aside.left-menu .menu-wrap {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  padding: 1em;
+}
+
+aside.left-menu .menu-wrap h4 {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: .73em;
+  letter-spacing: .127em;
+  color: #888;
+}
+
+aside.left-menu .menu-wrap ul {
+  padding-left: 1em;
+  margin-top: .4em;
+}
+
+aside.left-menu .menu-wrap ul li {
+  list-style: none;
+}
+
+aside.left-menu .menu-wrap ul li a,
+aside.left-menu .menu-wrap ul li a:visited,
+aside.left-menu .menu-wrap ul li a:link {
+  list-style: none;
+  color: #666;
+  text-decoration: none;
+  font-weight: bold;
+}
+aside.left-menu .menu-wrap ul li a:hover {
+  color: #222;
+}
+
+div.content-wrap {
+  width: calc(100% - 220px);
+  float: right;
+  /*background-color: red;*/
+  min-height: 100%;
+  padding: 2.5em;
+  color: #333;
+}
+
+div.content-wrap p {
+  font-size: 1.1em;
+}
+
+div.content-wrap .img-box {
+  width: 100%;
+  text-align: center;
+}
+
+div.content-wrap .img-box img {
+  border: 1px solid #ccc;
+}
 
 
 

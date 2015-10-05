@@ -1,0 +1,129 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Aulas 1 e 2</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="favicon" href="../favicon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <aside class="left-menu">
+          <div class="menu-upper-wrap">
+            <div class="img-box">
+              <img id="main-logo" src="../img/logo.png" alt="logo" />
+            </div>
+            <header>
+              <h1>Liga Excel - VBA</h1>
+              <h2>Site de apoio</h2>
+            </header>
+          </div>
+          <div class="menu-wrap">
+            <h4>Conteúdos das Aulas</h4>
+            <ul>
+              <li><a href="../content/aulas1e2.html">Aulas 1 e 2</a></li>
+              <li><a href="../content/aula3.html">Aula 3</a></li>
+            </ul>
+            <h4>Material Extra</h4>
+            <ul>
+              <li><a href="../content/sumario.html">Sumário de Comandos</a></li>
+              <li></li>
+            </ul>
+            <h4>Links Úteis</h4>
+            <ul>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </aside>
+        <div class="content-wrap aulas1e2">
+          <h2>Aulas 1 e 2</h2>
+          <p>
+            Nesta aula, vimos os conceitos básicos de VBA e Macros em Excel e também
+            vimos algumas estruturas introdutórias de linguagens de programação.
+          </p>
+          <h3>1. Macros</h3>
+          <p>
+            Macros são rotinas do Excel que conseguem capturar um comportamento do usuário
+            e replicar posteriormente, conforme for preciso.
+          </p>
+          <p>
+            Para criar uma nova macro, vá até a aba <b>Desenvolvedor</b> do Excel
+            (se a aba não aparece na sua interface, veja como habilitá-la <a href="#">aqui</a>):
+          </p>
+          <div class="img-box">
+            <img src="../img/aula1e2_1.jpg" alt="" />
+          </div>
+          <p>
+            Clicando na aba <b>Desenvolvedor</b>, você verá o subgrupo <b>Código</b>, à esquerda da tela:
+          </p>
+          <div class="img-box">
+            <img src="../img/aula1e2_2.jpg" alt="" />
+          </div>
+          <p>
+            Estes, acima, são as principais funcionalidades que usaremos neste curso.
+          </p>
+          <p>
+            Para começar a gravar uma nova macro, clique no botão <b>Gravar Macro</b>:
+          </p>
+          <div class="img-box">
+            <img src="../img/aula1e2_3.jpg" alt="" />
+          </div>
+          <p>
+            Na tela que abre, podemos nomear a nova rotina e escolher um atalho do teclado para executá-la.
+          </p>
+          <p>
+            A gravação de uma macro pode ser utilizada para preenchimentos automáticos customizados pelo usuário,
+            aplicação de funções, gráficos, etc. A gravação é feita através da interpretação, pelo Excel, do que
+            o usuário está fazendo e da conversão dessas ações em VBA. Uma macro, portanto, é um código VBA.
+          </p>
+          <h3>2. Características da Linguagem VBA</h3>
+          <p>
+            O acrônimo VBA significa Visual Basic for Applications. Visual Basic é uma linguagem de programação
+            proprietária da Microsoft e, por isto, não é utilizada em softwares livres, como o Open Office Calc, por exemplo.
+          </p>
+          <p>
+            VBA é uma linguagem dinamicamente tipada, o que significa só precisamos declarar tipos de variáveis
+            em certos casos. Quando o tipo da variável não é definido, a linguagem infere o tipo referente à associação.
+            Ex:
+          </p>
+<pre class="prettyprint">
+  Idade = 18
+  'neste caso, a linguagem analisa que o número inteiro 18 está sendo associado à variável e infere seu tipo'
+</pre>
+          <p>
+            Para definir o tipo da variável em VBA, utilizamos a palavra-chave <b>Dim</b>:
+          </p>
+<pre class="prettyprint">
+  Dim Idade As Integer
+  Idade = 18
+</pre>
+          <h4>2.1. Estruturas de Decisão</h4>
+          <a href="https://msdn.microsoft.com/pt-br/library/hh892482.aspx">Explicação detalhada (MSDN)</a>
+          <h4>2.2. Estruturas de Repetição</h4>
+          <p>
+            Existem duas estruturas de repetição: <b>Do... While</b> e <b>For... next</b>. Para uma explicação mais detalhada,
+            <a href="http://excelevba.com.br/estrutura-de-repeticao/">acesse o link (excelvba.com.br)</a>
+          </p>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
