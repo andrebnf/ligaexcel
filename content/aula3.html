@@ -1,0 +1,214 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Liga Excel</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="favicon" href="../favicon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <aside class="left-menu">
+          <div class="menu-upper-wrap">
+            <div class="img-box">
+              <img id="main-logo" src="../img/logo.png" alt="logo" />
+            </div>
+            <header>
+              <h1>Liga Excel - VBA</h1>
+              <h2>Site de apoio</h2>
+            </header>
+          </div>
+          <div class="menu-wrap">
+            <h4>Conteúdos das Aulas</h4>
+            <ul>
+              <li><a href="../content/aulas1e2.html">Aulas 1 e 2</a></li>
+              <li><a href="../content/aula3.html">Aula 3</a></li>
+            </ul>
+            <h4>Material Extra</h4>
+            <ul>
+              <li><a href="../content/abadesenvolvedor.html">Aba Desenvolvedor</a></li>
+              <li><a href="../content/sumario.html">Comandos Úteis</a></li>
+              <li></li>
+            </ul>
+            <h4>Links Extras</h4>
+            <ul>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </aside>
+        <div class="content-wrap aula3">
+          <h2>Aula 3 - Cotações de Ações em tempo real</h2>
+          <div class="double-column-wrap decorate clearfix">
+            <div class="column">
+              <h4>Planilha para a aula</h4>
+              <a href="./worksheets/aula3-pre.xlsm" target="_blank">Baixar</a>
+            </div>
+            <div class="column">
+              <h4>Planilha resolvida em aula</h4>
+              <a href="./worksheets/aula3-resolvido.xlsm" target="_blank">Baixar</a>
+            </div>
+          </div>
+          <h3>1. Introdução</h3>
+          <p>
+            Nesta aula, usaremos alguns conceitos de comunicação cliente-servidor e API. Não vamos entrar
+            em detalhes, sendo que alguns conceitos podem ser abstraídos.
+          </p>
+          <h4>1.1. API</h4>
+          <p>
+            API é um acrônimo para Application Programming Interface (Interface de Programação de Aplicativos, em português).
+            Uma API, de um modo bem superficial, é uma camada da aplicação que tem a finalidade de prover e se comunicar com
+            outras aplicações. Para mais detalhes, leia
+            <a href="http://www.tecmundo.com.br/programacao/1807-o-que-e-api-.htm" target="_blank">este artigo</a>.
+          </p>
+          <h4>1.2. Comunicação cliente-servidor</h4>
+          <p>
+            Utilizaremos funções de comunicação cliente-servidor neste projeto, mas iremos abstrair grande parte dos
+            conceitos envolvidos, já que este estudo seria muito extenso. Se você tiver curiosidade, dê uma olhada nas
+            sessões introdutórias <a href="https://pt.wikipedia.org/wiki/Cliente-servidor" target="_blank">deste artigo</a>.
+          </p>
+          <h3>2. O projeto</h3>
+          <p>
+            O objetivo deste projeto é construir um botão que atualizará os valores das ações em nossa planilha.
+          </p>
+          <h4>2.1. Adicionando o botão</h4>
+          <p>
+            Para adicionar um botão que receberá um código de execução, vá na aba <b>Desenvolvedor</b>, clique em
+            inserir e selecione a opção <b>Botão de Comando (Controle ActiveX)</b>.
+          </p>
+          <div class="img-box">
+            <img src="../img/aula3_1.jpg" alt="aula3_1" />
+          </div>
+          <p>
+            Em seguida, clique com o botão direito do mouse no botão adicionado e selecione a opção <b>Propriedades</b>
+            (verifique que o <b>Modo de design</b>, na paleta de desenvolvimento, está selecionado como na figura).
+            A seguinte tela será aberta:
+          </p>
+          <div class="img-box">
+            <img src="../img/aula3_2.jpg" alt="aula3_1" />
+          </div>
+          <p>
+            Na janela de opções, mude o nome do botão (primeiro campo). O nome do botão será utilizado
+            para identificar o componente. O texto do botão pode ser alterado no campo <b>Caption</b>.
+          </p>
+          <h4>2.2. Programando a ação do botão</h4>
+          <p>
+            Com o <b>Modo de design</b> selecionado, dê duplo-clique no botão recém adicionado. Esta ação
+            fará com que a tela do Visual Basic se abra. Este tela será onde iremos programar a ação do botão.
+          </p>
+          <p>
+            O seguinte algoritmo, explicado linha a linha, foi utilizado para a atualização dos dados na planilha. Obs:
+            as linhas com o conteúdo circundado por aspas simples (') são comentários e não são processadas.
+          </p>
+<pre class="prettyprint">
+  Private Sub BotaoAtualizar_Click()
+
+      'Pegando a ultima linha não nula da coluna A:'
+      UltimaLinha = Range("A1000").End(xlUp).Row
+
+      'Montando uma string*1 com os símbolos a serem consultados'
+      '*1 string é um tipo que representa texto'
+      For i = 2 To UltimaLinha 'começamos na linha 2 pois removemos o cabeçalho'
+          'Concatenando os simbolos encontrados na planilha:'
+          simbolos = simbolos &amp; Range("A" &amp; i).Value &amp; "+"
+      Next i
+      'No final, simbolos será parecido com FB+GOOG+VZ+'
+      'Temos que remover o + do final:'
+      simbolos = Left(simbolos, Len(simbolos) - 1)
+
+      'Montando a url da api finance do yahoo com nossos simbolos'
+      URL = "http://finance.yahoo.com/d/quotes.csv?s=" &amp; simbolos &amp; "&amp;f=snl1hg"
+      'f=snl1hg na linha acima são os atributos que queremos pegar da API'
+      's = sigla da ação'
+      'n = nome da empresa'
+      'l1 = ultimo preço negociado'
+      'h = alta do dia'
+      'g = baixa do dia'
+      'Lista completa de atributos: https://dl.dropboxusercontent.com/u/1062712/Yahoo%20data%20download.htm'
+
+      'Agora, vamos pedir os dados para a API'
+      'Configurando o pedido:'
+      Dim Http As New WinHttpRequest
+      'Para usar WinHttpRequest acima, vá em Ferramentas > Referências e'
+      'cheque a opção Microsoft WinHttp Services, como na figura abaixo ao código'
+
+      'Abrindo a conexao:'
+      Http.Open "GET", URL, False
+      'False, acima, significa que vamos esperar a abertura da conexão'
+      'terminar para continuar a execução de nosso código'
+
+      'Enviando o pedido:'
+      Http.Send
+
+      'Pegando a resposta'
+      resposta = Http.ResponseText
+      'Separando a resposta'
+      linhas = Split(resposta, vbLf)
+      'Split, acima, recebe dois parâmetros: o texto que queremos separar e'
+      'o caractere separador. Neste caso, queremos separar a resposta sempre'
+      'que houver um *enter*, ou uma quebra de texto. A palavra vbLf representa'
+      'a quebra de texto em VBA. A função Split retorna uma lista de textos,'
+      'a qual será salva na variável linhas'
+
+      'Aperte CTRL+G para abrir a janela de Verificação imediata'
+      'A linha abaixo irá imprimir o que foi encontrado na respota'
+      'da API na janela de Verificação imediata. Esta linha não é'
+      'necessária, mas nos ajudará a prosseguir:'
+      Debug.Print resposta
+
+      'A lista de linhas tem tamanho UBound(linhas) e comeca em 0'
+      'No for, para cada linha, extrai os valores que precisamos:'
+      For i = 0 To UBound(linhas) - 1
+          'UBound retorna quantos elementos há em linhas'
+          'A variável sline vai guardar a linha que estamos considerando:'
+          sline = linhas(i)
+          'Temos que dividir sline para pegar o valor dos atributos'
+          'A resposta da API trás os valores separados por vírgula:'
+          valores = Split(sline, ",")
+
+          'Agora que temos os valores dos atributos, vamos colocá-los'
+          'nas respectivas células:'
+          Cells(i + 2, 2).Value = Replace(valores(1), Chr(34), "")
+          'Replace, acima, está retirando as aspas (") presentes no'
+          'nome da empresa, quando retornada da API'
+          Cells(i + 2, 3).Value = valores(2)
+          Cells(i + 2, 4).Value = valores(3)
+          Cells(i + 2, 5).Value = valores(4)
+      Next i
+
+      'Organiza automaticamente o tamanho das colunas'
+      Cells.Columns.AutoFit
+
+  End Sub
+</pre>
+          <h4>2.3. Habilitando plugin de conexão HTTP</h4>
+          <p>
+            No código acima, utilizamos a funcionalidade WinHttpRequest.
+            Para habilitar este plugin, vá em <b>Ferramentas > Referências</b> e
+            cheque a opção Microsoft WinHttp Services, como na figura abaixo. Após isto, clique em <b>OK</b>.
+          </p>
+          <div class="img-box">
+            <img src="../img/aula3_3.jpg" alt="" />
+          </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
