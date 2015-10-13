@@ -1,0 +1,207 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Liga Excel</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="favicon" href="../favicon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <aside class="left-menu">
+          <div class="menu-upper-wrap">
+            <div class="img-box">
+              <img id="main-logo" src="../img/logo.png" alt="logo" />
+            </div>
+            <header>
+              <h1>Liga Excel - VBA</h1>
+              <h2>Site de apoio</h2>
+            </header>
+          </div>
+          <div class="menu-wrap">
+            <h4>Conteúdos das Aulas</h4>
+            <ul>
+              <li><a href="../content/aulas1e2.html">Aulas 1 e 2</a></li>
+              <li><a href="../content/aula3.html">Aula 3</a></li>
+              <li><a href="../content/aula4.html">Aula 4</a></li>
+              <li><a href="../content/aula5.html">Aula 5</a></li>
+            </ul>
+            <h4>Material Extra</h4>
+            <ul>
+              <li><a href="../content/abadesenvolvedor.html">Aba Desenvolvedor</a></li>
+              <li><a href="../content/sumario.html">Comandos Úteis</a></li>
+            </ul>
+            <h4>Links Extras</h4>
+            <ul>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </aside>
+        <div class="content-wrap abadesenvolvedor">
+          <h2>Aula 5</h2>
+          <h3>
+            Populando com dados randômicos
+          </h3>
+          <p>
+            Utilizaremos o comando abaixo para gerar um conjunto de dados randômicos em nossa planilha:
+          </p>
+<pre class="prettyprint">
+Sub PopulaDados()
+
+  Randomize 'inicia o componente gerador de numeros aleatorios em VB'
+  For i = 1 To 16
+
+    If i = 1 Then 'se é primeira linha...'
+      For j = 1 To 20 'a cada coluna...'
+        Cells(i, j).Value = "H" &amp; j 'insira rótulo (cabeçalho) de nossa tabela'
+      Next j
+    Else 'se nao for a primeira linha...'
+      For j = 1 To 20 'para cada coluna...'
+        Cells(i, j).Value = Rnd '-> gera numero aleatório'
+      Next j
+    End If
+
+  Next i
+End Sub
+</pre>
+          <h3>Calculando a média sobre os dados gerados</h3>
+          <p>
+            Atente-se no código abaixo e nos comentários (textos circundados por aspas simples) descrevendo o passo-a-passo
+          </p>
+<pre class="prettyprint">
+Sub CalcMedia()
+  For j = 1 To 20 'fixa coluna'
+    'quando muda de coluna, soma = 0'
+    soma = 0
+
+    For i = 2 To 16 'varia as linhas'
+      soma = soma + Cells(i, j).Value
+    Next i
+    'calcula media'
+    Cells(17, j) = soma / 15
+
+    If Cells(17, j).Value > 0.5 Then
+      '4 = verde'
+      Cells(17, j).Interior.ColorIndex = 4
+    Else
+      '6 = amarelo'
+      Cells(17, j).Interior.ColorIndex = 6
+    End If
+
+  Next j
+End Sub
+</pre>
+          <h3>Calculando Variância e Desvio Padrão</h3>
+          <p>
+            Vamos separar os cálculos em dois sub-procedimentos: <b>CalcVariancia</b> e <b>CalcDesvioPadrao</b>:
+          </p>
+<pre class="prettyprint">
+Sub CalcVariancia()
+  For j = 1 To 20 'fixa a coluna'
+    media = Cells(17, j).Value 'cada coluna tem um unico valor de media'
+    v = 0 'v é a dos quadrados da diferenca entre o valor da celula e a media'
+    For i = 2 To 16 'varia as linhas'
+      dif = Cells(i, j).Value - media
+      v = v + (dif ^ 2)
+    Next i
+
+    Cells(18, j).Value = v / 15
+  Next j
+End Sub
+</pre>
+<pre class="prettyprint">
+Sub CalcDesvioPadrao()
+  For i = 1 To 20
+    Cells(19, i).Value = Sqr(Cells(18, i).Value)
+  Next i
+End Sub
+</pre>
+          <h3>Gerando Gráficos</h3>
+          <p>
+            Utilizaremos os conceitos de gráficos (que será disponibilizado no conteúdo da <b>Aula 3</b>) para adicionar dinamicamente
+            os gráficos em nossa planilha.
+          </p>
+          <p>
+            Queremos gerar <b>dois</b> gráficos para este exemplo: um para as médias, outro para o desvio padrão.
+          </p>
+          <h4>Gerando Gráfico de Médias</h4>
+<pre class="prettyprint">
+Sub GeraGraficoMedia()
+  n_graficos = ActiveSheet.ChartObjects.Count
+  'se já existirem 2 gráficos na planilha, não faz nada'
+  If n_graficos < 2 Then
+    Dim graf As ChartObject 'temos que definir o tipo da variável para gráficos em Excel'
+
+    'O comando Set, abaixo, diz que a variável graf representa um ChartObject, que está sendo criado'
+    Set graf = ActiveSheet.ChartObjects.Add(20, 300, 400, 200)
+    'No comando acima, posicao x: 20, posicao y:300, comprimento: 400, altura: 200'
+
+    'O código abaixo é uma sobreposição de valores em uma função,
+    'chamada SetSourceData, do ChartObject em Excel.'
+    'Este código informa para o gráfico qual é o intervalo
+    'de dados a ser utilizado e como mostrar tais dados.'
+    graf.Chart.SetSourceData Source:=Range("A17:T17"), PlotBy:=xlColumns
+  End If
+End Sub
+</pre>
+            <h4>Gerando Gráfico de Desvio Padrão</h4>
+<pre class="prettyprint">
+Sub GeraGraficoDesvioPadrao()
+  n_graficos = ActiveSheet.ChartObjects.Count
+  'se já existirem 2 gráficos na planilha, não faz nada'
+  If n_graficos < 2 Then
+    'Mesma rotina para o gráfico anterior, porém como dados diferentes'
+    Dim graf As ChartObject
+    Set graf = ActiveSheet.ChartObjects.Add(450, 300, 400, 200)
+    graf.Chart.SetSourceData Source:=Range("A19:T19")
+
+    'Muda o tipo de gráfico para o tipo ~linha~'
+    graf.Chart.Type = xlLine
+  End If
+End Sub
+</pre>
+          <h3>Executando todas as Sub Procedures ao mesmo tempo</h3>
+          <p>
+            Podemos simplesmente 'chamar' os procedimentos criados a partir de um outro procedimento. Delete todo o conteúdo de sua
+            planilha (dados gerados e cálculos). Não delete os procedimentos que criamos anteriormente.
+            Em seguida, execute o seguinte sub procedimento.
+          </p>
+<pre class="prettyprint">
+Sub GeraPlanilhaTeste()
+  PopulaDados
+  CalcMedia
+  CalcVariancia
+  CalcDesvioPadrao
+  GeraGraficoMedia
+  GeraGraficoDesvioPadrao
+  FormataPlanilha
+End Sub
+</pre>
+          <p>
+            Executar este procedimento é equivalente a executar as rotinas de
+            <b>PopulaDados</b>, <b>CalcMedia</b>, <b>CalcVariancia</b>, <b>CalcDesvioPadrao</b>,
+            <b>GeraGraficoMedia</b>, <b>GeraGraficoDesvioPadrao</b> e <b>FormataPlanilha</b>, nesta exata ordem.
+          </p>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
