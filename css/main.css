@@ -231,6 +231,12 @@ div.double-column-wrap .column:first-child {
   border-right: 1px solid #ccc;
 }
 
+ol li {
+  margin-bottom: 1em;
+  margin-top: 1em;
+  line-height: 1.4em;
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */

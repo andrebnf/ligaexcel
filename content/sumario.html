@@ -37,26 +37,103 @@
             <ul>
               <li><a href="../content/aulas1e2.html">Aulas 1 e 2</a></li>
               <li><a href="../content/aula3.html">Aula 3</a></li>
-              <li><a href="../content/aula4.html">Aula 4</a></li>
               <li><a href="../content/aula5.html">Aula 5</a></li>
+              <li><a href="../content/aula6.html">Aula 6</a></li>
             </ul>
             <h4>Material Extra</h4>
             <ul>
               <li><a href="../content/abadesenvolvedor.html">Aba Desenvolvedor</a></li>
               <li><a href="../content/sumario.html">Comandos Úteis</a></li>
             </ul>
-            <h4>Links Extras</h4>
-            <ul>
-              <li></li>
-              <li></li>
-            </ul>
+
           </div>
         </aside>
         <div class="content-wrap abadesenvolvedor">
           <h2>Sumário de Comandos Úteis</h2>
+          <h3>Seleção de Células</h3>
           <p>
-            *página não atualizada*
+            Podemos selecionar células na planilha de comandos diferentes: <b>Cells</b> e <b>Range</b>.
           </p>
+          <h4>O comando Cells</h4>
+          <p>
+            A planilha nada mais é do que uma matriz de dados. O comando <b>Cells</b> representa esta matriz e é utilizado
+            para acessar dados em posições específicas da planilha.
+          </p>
+          <p>
+            O comando <b>Cells</b> recebe dois parâmetros: o número da linha e o número da coluna, nesta ordem. Exemplos:
+          </p>
+<pre class="prettyprint">
+Cells(1,1).select 'seleciona a celula na linha 1, coluna 1 (A)'
+Cells(200, 100).select 'seleciona celula na linha 200, coluna 100'
+
+x = 20
+Cells(x, 2).value = 10 'celula na linha 20, coluna 2 recebe o valor 10'
+</pre>
+          <p>
+            A figura abaixo exemplifica os índices da matriz de células:
+          </p>
+          <div class="img-box">
+            <img id="main-logo" src="../img/summary1.jpg" alt="logo" />
+          </div>
+          <h4>O comando Range</h4>
+          <p>
+            Este comando faz uma seleção em múltiplas células e é útil para referenciar múltiplos valores de uma só vez.
+            O comando Range também pode utilizar Cells para definir os extremos da seleção. Exemplos:
+          </p>
+<pre class="prettyprint">
+Range("A1:D4").select 'seleciona todas as celulas de A1 à D4'
+Range("A1:D4").value = 1 'altera o valor de toda a seleção para 1'
+Range(Cells(1,1), Cells(4,4)).select 'seleciona todas as celulas de A1 à D4'
+</pre>
+          <h3>Operações Aritméticas Básicas</h3>
+<pre class="prettyprint">
+'soma e subtração'
+  x = 3 + 21 'x = 24'
+  x = 33 - 1 'x = 32'
+
+'multiplicação, exponenciação e raiz quadrada'
+  y = 15 * 3 'y = 45'
+  y = 2 ^ 3  'y = 8'
+  y = sqr(4) 'y = 2'
+
+'divisão'
+  z = 5 / 3   'divisão real: z = 1,66666...'
+  z = 5 \ 3   'divisão inteira: z = 1'
+  z = 5 mod 3 'resto da divisão: z = 2'
+</pre>
+
+        <h3>Operações Lógicas Básicas</h3>
+        <p>
+          Estas operações são geralmente utilizadas em estruturas de decisão: "se preço maior que R$20,00, realize certa ação". Exemplos:
+        </p>
+<pre class="prettyprint">
+'comparações'
+  x = 1 > 2  'x = Falso'
+  x = 1 < 2  'x = Verdadeiro'
+  x = 1 < 1  'x = Falso'
+  x = 1 <= 1 'x = Verdadeiro'
+  x = 4 &lt;&gt; 6 '4 é diferente de 6? Sim, x = Verdadeiro'
+  x = 5 = 2  '5 é igual a 2? Não, x = Falso'
+
+'operador lógico E (AND)'
+  y = 15 > 2 AND 2 > 7 'traduzimos para: 15 é maior que 2 e 2 é maior que 7, o que é mentira'
+                       'y = Falso'
+  y = (1 + 3) = 4 AND 4 > 2 'y = Verdadeiro'
+  y = 10 > 4 AND (12 mod 2 = 0) AND (1 * 7 = 7) AND 1 > 4
+  'Obs: Se alguma das operações acima for Falsa, toda a expressão é falsa'
+
+'operador lógico OU (OR)'
+  z = 15 > 2 OR 2 > 7 'z = Verdadeiro'
+  'traduzimos para: 15 é maior que 2 OU 2 é maior que 7, o que é verdade pois 15 é maior que 2'
+
+  z = 10 > 4 OR (12 mod 2 = 0) OR (1 * 7 = 7) OR 1 > 4
+  'Obs: Se somente uma das operações acima for Verdadeira, toda a expressão é Verdadeira'
+</pre>
+          <h3>Adicionando e Programando um Botão</h3>
+          <p>
+            Veja o material da <a href="./aula3.html">Aula 3</a>, sessão 2.1 e 2.2.
+          </p>
+
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

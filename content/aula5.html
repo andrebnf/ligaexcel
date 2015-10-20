@@ -37,19 +37,19 @@
             <ul>
               <li><a href="../content/aulas1e2.html">Aulas 1 e 2</a></li>
               <li><a href="../content/aula3.html">Aula 3</a></li>
-              <li><a href="../content/aula4.html">Aula 4</a></li>
               <li><a href="../content/aula5.html">Aula 5</a></li>
+              <li><a href="../content/aula6.html">Aula 6</a></li>
             </ul>
             <h4>Material Extra</h4>
             <ul>
               <li><a href="../content/abadesenvolvedor.html">Aba Desenvolvedor</a></li>
               <li><a href="../content/sumario.html">Comandos Úteis</a></li>
             </ul>
-            <h4>Links Extras</h4>
+            <!-- <h4>Links Extras</h4>
             <ul>
               <li></li>
               <li></li>
-            </ul>
+            </ul> -->
           </div>
         </aside>
         <div class="content-wrap abadesenvolvedor">
@@ -173,6 +173,13 @@ Sub GeraGraficoDesvioPadrao()
     'Muda o tipo de gráfico para o tipo ~linha~'
     graf.Chart.Type = xlLine
   End If
+End Sub
+</pre>
+          <h3>Formatando os dados da Planilha</h3>
+<pre class="prettyprint">
+Sub FormataPlanilha()
+  Range("A2:T19").NumberFormat = "0.00%" 'formata celulas'
+  Columns.AutoFit 'automaticamente muda o tamanho da coluna'
 End Sub
 </pre>
           <h3>Executando todas as Sub Procedures ao mesmo tempo</h3>
