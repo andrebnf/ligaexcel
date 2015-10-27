@@ -50,10 +50,38 @@
           </div>
         </aside>
         <div class="content-wrap abadesenvolvedor">
-          <h2>Habilitando a aba de Desenvolvimento no Excel</h2>
+          <h2>Aula 7</h2>
+          <h3>Exemplo de Função</h3>
+<pre class="prettyprint">
+Function MinhaSoma (selecao As Range) As Integer
+  soma = 0
+  For Each celula In selecao
+    soma = celula.Value + soma
+  Next celula
+
+  MinhaSoma = soma 'O resultado da função será a soma total'
+End Function
+</pre>
           <p>
-            Para habilitar a guia de Desenvolvimento no Excel, siga o passo-a-passo <a href="https://msdn.microsoft.com/pt-br/library/bb608625.aspx">neste site</a>.
+            Onde, <b>dados</b>, que será um <b>Range</b> de valores, é a entrada da função e <b>Integer</b> é o tipo do retorno. Precisamos obrigatoriamente informar estes dados.
           </p>
+          <h3>Exercícios</h3>
+          <ol>
+            <li>Faça uma função que calcule a média de um certo conjunto de dados.</li>
+            <li>Faça um subprocedimento ou uma função que analise se certo número é triangular. Um número é triangular se ele for divisível por 2 E por 3. Exemplo: 6 = 2 x 3, 6 é triangular. 12 = 2 x 3 x 2, 12 é triangular. 5 não é triangular.</li>
+            <p>
+              Se desejar utilizar caixa de mensagens, utilize os comandos:
+            </p>
+<pre class="prettyprint">
+valor = InputBox("Informe o valor")
+MsgBox("Esta mensagem será exibida ao usuário. O valor informado é " &amp; valor)
+</pre>
+            <li>Faça uma função que, dado um conjunto de dados, retorna a soma dos números pares.</li>
+            <li>Faça uma função que, dado um conjunto de dados, retorna a soma dos números triangulares.</li>
+            <li>Faça um subprocedimento que verifica se um número qualquer é primo.</li>
+            <li>Faça uma função que, dado um conjunto de dados, retorna o menor valor encontrado.</li>
+            <li>Faça uma função CalcMediaEMinimo que, dado um conjunto de dados, calcula a média e também acha o menor número na seleção. O resultado da função deve ser no formato "MEDIA # MINIMO". Por exemplo: se a média da seleção for 3,25 e o menor valor encontrado for 2, a função deverá retornar a <b>String</b> "3,25 # 2".</li>
+          </ol>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
